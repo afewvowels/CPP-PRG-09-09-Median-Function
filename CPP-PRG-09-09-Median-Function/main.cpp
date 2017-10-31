@@ -20,9 +20,77 @@
 //  in this function.
 
 #include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int *sizeArray();
+int *fillArray(int);
+void displayMedian(int *, int);
 
 int main()
 {
+    int *intArrIntegers = nullptr;
+    int *intArrSize = nullptr;
+    
+    intArrSize = sizeArray();
+    
+    intArrIntegers = fillArray(*intArrSize);
+    
+    displayMedian(intArrIntegers, *intArrSize);
     
     return 0;
+}
+
+int *sizeArray()
+{
+    int *intSize = nullptr;
+    
+    intSize = new int;
+    
+    cout << "Please enter the size of the array: ";
+    cin >> *intSize;
+    
+    return intSize;
+}
+
+int *fillArray(int intSize)
+{
+    int *intArr = nullptr;
+    
+    intArr = new int[intSize];
+    
+    for (int i = 0 ; i < intSize ; i++)
+    {
+        cout << "Please enter value " << (i + 1) << " of " << intSize << ": ";
+        cin >> *(intArr + i);
+    }
+    
+    return intArr;
+}
+
+void displayMedian(int *intArr, int intSize)
+{
+    float *fltMedian = nullptr;
+    
+    fltMedian = new float;
+    
+    if(intSize % 2 == 0)
+    {
+        *fltMedian += intArr[intSize/2];
+        *fltMedian += intArr[(intSize/2) - 1];
+        *fltMedian /= 2.0f;
+    }
+    else if(intSize % 2 != 0)
+    {
+        *fltMedian = intArr[intSize/2];
+    }
+    else
+    {
+        cout << "ERROR DETERMINING MEDIAN VALUE" << endl;
+        exit(1);
+    }
+    
+    cout << setprecision(1) << fixed << showpoint;
+    cout << "The median value is " << *fltMedian << endl;
 }

@@ -39,6 +39,9 @@ int main()
     
     displayMedian(intArrIntegers, *intArrSize);
     
+    delete [] intArrIntegers;
+    intArrIntegers = nullptr;
+ 
     return 0;
 }
 

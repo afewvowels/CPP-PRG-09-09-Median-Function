@@ -26,6 +26,8 @@ using namespace std;
 
 int *sizeArray();
 int *fillArray(int);
+int *sortArray(int *, int);
+void swap(int *, int *);
 void displayMedian(int *, int);
 
 int main()
@@ -36,6 +38,22 @@ int main()
     intArrSize = sizeArray();
     
     intArrIntegers = fillArray(*intArrSize);
+    
+    cout << "The values in the array are:\n";
+    for (int i = 0 ; i < *intArrSize ; i++)
+    {
+        cout << intArrIntegers[i] << endl;
+    }
+    cout << endl;
+    
+    intArrIntegers = sortArray(intArrIntegers, *intArrSize);
+    
+    cout << "The sorted values in the array are:\n";
+    for (int i = 0 ; i < *intArrSize ; i++)
+    {
+        cout << intArrIntegers[i] << endl;
+    }
+    cout << endl;
     
     displayMedian(intArrIntegers, *intArrSize);
     
@@ -70,6 +88,60 @@ int *fillArray(int intSize)
     }
     
     return intArr;
+}
+
+//  Broken selection sort, use this someday
+//int *sortArray(int *intArr, int intSize)
+//{
+//    int intMinIndex;
+//    int intMinValue;
+//
+//    for(int start = 0 ; start < (intSize - 1) ; start++)
+//    {
+//        intMinIndex = start;
+//        intMinValue = intArr[start];
+//
+//        for(int i = (start + 1) ; i < intSize ; i++)
+//        {
+//            if(intArr[i] < intArr[intMinValue])
+//            {
+//                intMinValue = intArr[i];
+//                intMinIndex = i;
+//            }
+//        }
+//        swap(intArr[intMinIndex], intArr[start]);
+//    }
+//
+//    return intArr;
+//}
+
+int *sortArray(int *intArr, int intSize)
+{
+    int intMaxElement;
+    int intIndex;
+    
+    for (intMaxElement = (intSize - 1) ; intMaxElement > 0 ; intMaxElement--)
+    {
+        for (intIndex = 0 ; intIndex < intMaxElement ; intIndex++)
+        {
+            if (intArr[intIndex] > intArr[intIndex + 1])
+            {
+                swap(intArr[intIndex], intArr[intIndex + 1]);
+            }
+        }
+    }
+    
+    return intArr;
+}
+
+void swap(int *intA, int *intB)
+{
+    int *intTemp = nullptr;
+    
+    intTemp = intA;
+    intA = intB;
+    intB = intTemp;
+    
 }
 
 void displayMedian(int *intArr, int intSize)
